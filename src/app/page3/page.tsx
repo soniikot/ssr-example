@@ -24,8 +24,8 @@ export default function Page3() {
         const jsonData = await res.json();
         setData(jsonData);
         setIsLoading(false);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
         setIsLoading(false);
       }
     }
@@ -35,33 +35,40 @@ export default function Page3() {
 
   return (
     <div className="flex flex-col items-center  h-screen m-10">
-      <h1 className="text-2xl font-bold">
-        Client Side Rendering (CSR) Example
-      </h1>
-      <p>
-        It is an example of client side rendering because the data is fetched
-        and rendered on the client side.
-      </p>
-      <Link
-        href="/"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-4"
-      >
-        Go to SSR Example
-      </Link>
-      <Link
-        href="/page2"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-4"
-      >
-        Go to SSG Example
-      </Link>
-      <div>
-        {data.map((item) => (
-          <div key={item.id}>
-            <h2>{item.title}</h2>
-            <p>{item.body}</p>
+      {error && <p className="text-red-500">{error}</p>}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <h1 className="text-2xl font-bold">
+            Client Side Rendering (CSR) Example
+          </h1>
+          <p>
+            It is an example of client side rendering because the data is
+            fetched and rendered on the client side.
+          </p>
+          <Link
+            href="/"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-4"
+          >
+            Go to SSR Example
+          </Link>
+          <Link
+            href="/page2"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-4"
+          >
+            Go to SSG Example
+          </Link>
+          <div>
+            {data.map((item) => (
+              <div key={item.id}>
+                <h2>{item.title}</h2>
+                <p>{item.body}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 }
