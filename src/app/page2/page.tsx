@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 async function getData() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    cache: "force-cache",
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -13,20 +15,23 @@ interface Data {
   title: string;
   body: string;
 }
-export default async function Home() {
+export default async function Page2() {
   const data: Data[] = await getData();
   return (
     <div className="flex flex-col items-center  h-screen m-10">
-      <h1 className="text-2xl font-bold">SSR Example</h1>
+      <h1 className="text-2xl font-bold">
+        Static Site Generation (SSG) Example
+      </h1>
       <p>
-        It is an example of server side rendered because it is using the fetch
-        API and there is no force-cache
+        It is an example of server side generation (at the build time) because
+        The use of cache: &quot;force-cache&quot; in the fetch call ensures that
+        the data is fetched and cached only once during the build process.
       </p>
       <Link
-        href="/page2"
+        href="/"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-4"
       >
-        Go to SSG Example
+        Go to SSR Example
       </Link>
       <Link
         href="/page3"
