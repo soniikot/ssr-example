@@ -59,6 +59,12 @@ export default function Page3() {
           >
             Go to SSG Example
           </Link>
+          <Link
+            href="/page4"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-4"
+          >
+            Go to ISR Example
+          </Link>
           <div>
             {data.map((item) => (
               <div key={item.id}>
